@@ -1,100 +1,91 @@
 version: '2'
+
 .catalog:
   name: Xibo
-  version: 2017-CU5-rancher1
+  version: 0.0.1
   description: xibo-cms
-  maintainer: "Jiang Jiang <kyukou@gmail.com>"
+  maintainer: "James Dodds <notreallyrealhere@gmail.com>"
   questions: 
-    - variable: "xibo_vers"
-      label: "Xibo Version:"
-      description: |
+   - variable: "xibo_vers"
+     label: "Xibo Version:"
+     description: |
         Choose Xibo version to be run.
-      default: latest
-      required: true
-      type: enum
-      options:
+     default: latest
+     required: true
+     type: enum
+     options:
         - release-2.0.2
         - latest
         - release-1.8.13
         - 1.8
-    - variable: "db_password"
-      type: "password"
-      required: true
-      label: "DB Password"
-      description: " External database password"
-      default: <YourStrong!Passw0rd>
-    - variable: "db_user"
-      type: "string"
-      required: true
-      label: "DB Username"
-      description: " External database username"
-      default: 'xibo-cms'
-    - variable: "db_host"
-      type: "string"
-      required: true
-      label: "DB Host"
-      description: "External database host address"
-      default: '192.168.1.100'
-    - variable: "db_name"
-      type: "string"
-      required: true
-      label: "DB name"
-      description: "External database name"
-      default: 'xibo'
-    - variable: "db_port"
-      type: "string"
-      required: true
-      label: "db_port"
-      description: "connect to mssql by this port"
-      default: 3306
-    - variable: "VOLUME_DRIVER"
-      description: "The VOLUME driver to associate with this server"
-      label: "VOLUME Driver"
-      required: true
-      default: "local"
-      type: enum
-      options:
-        - local
-        - rancher-nfs
-        - rancher-efs
-        - rancher-ebs
-    - variable: "HTTP_PORT"
-      label: "HTTP Port"
-      description: "The port used for HTTP connections"
-      default: 80
-      required: true
-      type: "int"
-    - variable: "HTTPS_PORT"
-      label: "HTTPS Port"
-      description: "The port used for HTTPS connections"
-      default: 8443
-      required: true
-      type: "int"
-    - variable: "XMR_port"
-      label: "XMR Port"
-      description: "The port used for XMR connections"
-      default: 9505
-      required: true
-      type: "int"      
-    - variable: "USE_HOST_TIME"
-      label: "Use Host Time"
-      description: "Adds /etc/localtime and /etc/timezone as volumes from the host for providing timezone information"
-      required: true
-      default: false
-      type: boolean
-    - variable: "host_path"
-      type: "string"
-      required: true
-      label: "/path/to/here"
-      description: "local host path"
-      default: '/data/xibo'
-services:
-  xibo-cms:
-    start_on_create: true
-        scale: 1
-    health_check:
-      port: ${HTTP_PORT}
-      interval: 5000
-      response_timeout: 5000
-      healthy_threshold: 2
-      unhealthy_threshold: 3
+   - variable: "db_password"
+     type: "password"
+     required: true
+     label: "DB Password"
+     description: " External database password"
+     default: <YourStrong!Passw0rd>
+   - variable: "db_user"
+     type: "string"
+     required: true
+     label: "DB Username"
+     description: " External database username"
+     default: 'xibo-cms'
+   - variable: "db_host"
+     type: "string"
+     required: true
+     label: "DB Host"
+     description: "External database host address"
+     default: '192.168.1.100'
+   - variable: "db_name"
+     type: "string"
+     required: true
+     label: "DB name"
+     description: "External database name"
+     default: 'xibo'
+   - variable: "db_port"
+     type: "string"
+     required: true
+     label: "db_port"
+     description: "connect to mssql by this port"
+     default: 3306
+   - variable: "VOLUME_DRIVER"
+     description: "The VOLUME driver to associate with this server"
+     label: "VOLUME Driver"
+     required: true
+     default: "local"
+     type: enum
+     options:
+       - local
+       - rancher-nfs
+       - rancher-efs
+       - rancher-ebs
+   - variable: "HTTP_PORT"
+     label: "HTTP Port"
+     description: "The port used for HTTP connections"
+     default: 80
+     required: true
+     type: "int"
+   - variable: "HTTPS_PORT"
+     label: "HTTPS Port"
+     description: "The port used for HTTPS connections"
+     default: 8443
+     required: true
+     type: "int"
+   - variable: "XMR_port"
+     label: "XMR Port"
+     description: "The port used for XMR connections"
+     default: 9505
+     required: true
+     type: "int"      
+   - variable: "USE_HOST_TIME"
+     label: "Use Host Time"
+     description: "Adds /etc/localtime and /etc/timezone as volumes from the host for providing timezone information"
+     required: true
+     default: false
+     type: boolean
+   - variable: "host_path"
+     type: "string"
+     required: true
+     label: "/path/to/here"
+     description: "local host path"
+     default: '/data/xibo'
