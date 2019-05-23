@@ -1,0 +1,30 @@
+version: '2'
+services:
+  cms-web:
+    image: xibosignage/xibo-cms:${xibo_vers}
+    environment:
+      CMS_DATABASE_PASSWORD=${db_password}
+      CMS_DATABASE_HOST=${db_host}
+      CMS_DATABASE_PORT=${db_port}
+      CMS_DATABASE_USERNAME=${db_user}
+      CMS_DATABASE_NAME=${db_name}
+    stdin_open: true
+    restart: always
+    volumes:
+    {{- if eq .Values.USE_HOST_TIME "true"}}
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+    {{- end}}
+      - ${host_path}"/cms/custom:/var/www/cms/custom"
+	  - ${host_path}"/backup:/var/www/backup"
+	  - ${host_path}"/cms/web/theme/custom:/var/www/cms/web/theme/custom
+	  - ${host_path}"/cms/library:/var/www/cms/library"
+	  - ${host_path}"/cms/web/userscripts:/var/www/cms/web/userscripts"
+    tty: true
+    ports:
+    - ${HTTP_PORT}:80/tcp
+  cms-xmr:
+    image: xibosignage/xibo-xmr:${xibo_vers}
+    restart: always
+    ports:
+     - ${XMR_port}:9505
