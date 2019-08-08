@@ -3,18 +3,27 @@
   version: 0.0.2
   description: "Xibo content management system."
   questions: 
-   - variable: xibo_vers
-     label: "Xibo Version:"
+   - variable: xibo_cms_vers
+     label: "Xibo CMS Version:"
      description: |
-        Choose Xibo version to be run.
+        Choose Xibo CMS version to be run.
      default: latest
      required: true
      type: enum
      options:
-        - release-2.0.2
+        - release-2.0.4
         - latest
-        - release-1.8.13
         - 1.8
+   - variable: xibo_xmr_vers
+     label: "XMR Version:"
+     description: |
+        Choose XMR (Xibo Message Relay) version to be run.
+     default: latest
+     required: true
+     type: enum
+     options:
+        - release-0.7
+        - latest
    - variable: "db_password"
      type: 'password'
      required: true
