@@ -117,7 +117,11 @@
       - protocol: tcp
         service: xibo-xmr
         source_port: ${XMR_port}
-        target_port: 9505        
+        target_port: 9505   
+      - protocol: tcp
+        service: xibo-xmr
+        source_port: 50001
+        target_port: 50001         
     health_check:
       healthy_threshold: 2
       response_timeout: 2000
