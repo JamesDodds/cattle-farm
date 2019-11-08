@@ -1,0 +1,5 @@
+name: LibreNMS
+description: |
+  LibreNMS, for your network overview needs.
+version: 0.0.1
+category: Automation

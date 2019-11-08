@@ -1,0 +1,110 @@
+.catalog:
+  name: LibreNMS
+  version: 0.0.1
+  description: "LibreNMS Network management/obs."
+  questions: 
+   - variable: nms_vers
+     label: "LibreNMS release version:"
+     description: |
+        Choose LibreNMS container release to be run.
+     default: latest
+     required: true
+     type: enum
+     options:
+        - latest
+        - 1.54
+        - 1.50
+   - variable: "DB_PASSWORD"
+     type: 'password'
+     required: true
+     label: 'DB Password'
+     description: 'External database password'
+     default: 'somethingbetterthanthis'
+   - variable: "db_user"
+     type: 'string'
+     required: true
+     label: 'DB Username'
+     description: ' External database username'
+     default: 'librenms'
+   - variable: "db_host"
+     type: 'string'
+     required: true
+     label: 'DB Host'
+     description: 'External database host address'
+     default: '192.168.1.100'
+   - variable: "db_name"
+     type: 'string'
+     required: true
+     label: 'DB name'
+     description: 'External database name'
+     default: 'xibo'
+   - variable: "db_port"
+     type: 'string'
+     required: true
+     label: 'db_port'
+     description: 'connect to mssql by this port'
+     default: 3306
+   - variable: "VOLUME_DRIVER"
+     description: 'The VOLUME driver to associate with this server'
+     label: 'VOLUME Driver'
+     required: true
+     default: 'local'
+     type: enum
+     options:
+       - local
+       - rancher-nfs
+       - rancher-efs
+       - rancher-ebs
+   - variable: "HTTP_PORT"
+     label: 'HTTP Port'
+     description: 'The port used for HTTP connections'
+     default: 80
+     required: true
+     type: 'int'
+   - variable: "HTTPS_PORT"
+     label: 'HTTPS Port'
+     description: 'The port used for HTTPS connections'
+     default: 8443
+     required: true
+     type: 'int'
+   - variable: "XMR_port"
+     label: 'XMR Port'
+     description: 'The port used for XMR connections'
+     default: 9505
+     required: true
+     type: 'int'      
+   - variable: "USE_HOST_TIME"
+     label: 'Use Host Time'
+     description: 'Adds /etc/localtime and /etc/timezone as volumes from the host for providing timezone information'
+     required: true
+     default: false
+     type: boolean
+   - variable: "host_path"
+     type: 'string'
+     required: true
+     label: '/path/to/here'
+     description: 'local host path'
+     default: '/data/xibo'
+ 
+ version: '2'
+ services:
+  cms-web:
+    scale: 1
+    start_on_create: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 80
+      unhealthy_threshold: 3
+      interval: 2000
+      strategy: recreate
+  cms-xmr:
+    scale: 1
+    start_on_create: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 9505
+      unhealthy_threshold: 3
+      interval: 2000
+      strategy: recreate      
